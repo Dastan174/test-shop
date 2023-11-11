@@ -5,12 +5,15 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useProducts } from "../context/ProductContext";
 import { Container } from "@mui/material";
+import { useCartContext } from "../context/CartContext";
 
 const DetailsPage = () => {
+  const navigate = useNavigate()
   const { getOneProduct, oneProduct } = useProducts();
+  const { addProductCart, checkProductInCart } = useCartContext();
 
   const { id } = useParams();
 
@@ -45,10 +48,30 @@ const DetailsPage = () => {
               {oneProduct.description}
             </Typography>
           </CardContent>
+
           <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-            <Button size="small" variant="contained">
-              Add to Basket
-            </Button>
+            {checkProductInCart(oneProduct.id) ? (
+              <>
+                <Button disabled size="small" variant="contained">
+                  Add to Basket
+                </Button>
+                <Button
+                  onClick={() => navigate("/")}
+                  size="small"
+                  variant="contained"
+                >
+                  Continue review
+                </Button>
+              </>
+            ) : (
+              <Button
+                onClick={() => addProductCart(oneProduct)}
+                size="small"
+                variant="contained"
+              >
+                Add to Basket
+              </Button>
+            )}
           </CardActions>
         </Card>
       ) : (

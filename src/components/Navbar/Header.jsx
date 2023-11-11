@@ -17,6 +17,12 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import AdminPanel from "../admin/AdminPanel";
 import { useProducts } from "../../context/ProductContext";
+import { useAuthContext } from "../../context/AuthContext";
+import { Avatar } from "antd";
+import LocalMallIcon from '@mui/icons-material/LocalMall';
+import { useCartContext } from "../../context/CartContext";
+
+
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -60,7 +66,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Header() {
   const navigate = useNavigate();
 
+  const {cart} = useCartContext()
   const { getProduct } = useProducts();
+  const {user,logOut} = useAuthContext()
+
+  function handleLogOut() {
+    handleMenuClose();
+    logOut();
+  }
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -123,7 +136,7 @@ export default function Header() {
         <MenuItem onClick={handleMenuClose}>Sign in</MenuItem>
       </Link>
       <Link>
-        <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+        <MenuItem onClick={handleLogOut}>Logout</MenuItem>
       </Link>
     </Menu>
   );
@@ -215,17 +228,39 @@ export default function Header() {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
+            <IconButton onClick={() => navigate("/cart")}>
+              <Badge color="secondary" badgeContent={cart?.products.length}>
+              <LocalMallIcon  sx={{color:"#fff"}}/>
+              </Badge>
             </IconButton>
+            {
+              user ? (
+                <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <Avatar src={~user.photoURL} alt={user.displayName} />
+                </IconButton>
+              ) : (
+                <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              )
+            }
+          
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton

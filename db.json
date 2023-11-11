@@ -1,21 +1,6 @@
 {
   "products": [
     {
-      "image": "https://m.media-amazon.com/images/I/41SefWin3jL._AC_UF1000,1000_QL80_.jpg",
-      "price": 3000,
-      "title": "New House Plants ",
-      "description": "Plants are living organisms that belong to the Plantae kingdom",
-      "id": 1,
-      "category": "plants"
-    },
-    {
-      "image": "https://hips.hearstapps.com/hmg-prod/images/potted-snake-plants-inside-a-beautiful-new-flat-or-royalty-free-image-1680644788.jpg",
-      "price": 100,
-      "title": "New House Plants ",
-      "description": "Plants are living organisms that belong to the Plantae kingdom",
-      "id": 2
-    },
-    {
       "image": "https://hips.hearstapps.com/hmg-prod/images/potted-snake-plants-inside-a-beautiful-new-flat-or-royalty-free-image-1680644788.jpg",
       "price": 300,
       "title": "Plants ",
