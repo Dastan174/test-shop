@@ -6,11 +6,10 @@ export const useCartContext = () => useContext(cartContext);
 const INIT_STATE = {
   cart: JSON.parse(localStorage.getItem("cart")),
 };
-const reducer = (state = INIT_STATE, action) => {
+const reducer = (state , action) => {
   switch (action.type) {
     case ACTION_CART.GET_CART:
       return { ...state, cart: action.payload };
-
     default:
       return state;
   }

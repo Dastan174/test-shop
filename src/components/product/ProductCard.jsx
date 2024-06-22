@@ -46,7 +46,7 @@ const ProductCard = ({ item }) => {
           onClick={() => navigate(`/details/${item.id}`)}
           aria-label="add to favorites"
         >
-          Bay
+          Buy
         </Button>
         <Button onClick={() => navigate(`/edit/${item.id}`)} aria-label="share">
           Edit

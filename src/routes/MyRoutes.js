@@ -7,6 +7,7 @@ import DetailsPage from "../pages/DetailsPage";
 import Register from "../components/authorithation/Register";
 import Login from "../components/authorithation/Login";
 import CardPage from "../pages/CardPage";
+import { ProtectedRoutes } from "../helpers/function";
 
 const MyRoutes = () => {
   const ADMIN_ROUTES = [
@@ -16,16 +17,18 @@ const MyRoutes = () => {
   const PUBLIC_ROUTES = [
     { link: "/", element: <ProductList />, id: 1 },
     { link: "/details/:id", element: <DetailsPage />, id: 2 },
-    {link:"/register",element:<Register/>,id:3},
-    {link:"/login",element:<Login/>,id:4},
-    {link:"/cart",element:<CardPage/>,id:5},
+    { link: "/register", element: <Register />, id: 3 },
+    { link: "/login", element: <Login />, id: 4 },
+    { link: "/cart", element: <CardPage />, id: 5 },
   ];
   return (
     <>
       <Routes>
-        {ADMIN_ROUTES.map((el) => (
-          <Route path={el.link} element={el.element} key={el.id} />
-        ))}
+        <Route element={<ProtectedRoutes />}>
+          {ADMIN_ROUTES.map((el) => (
+            <Route path={el.link} element={el.element} key={el.id} />
+          ))}
+        </Route>
         {PUBLIC_ROUTES.map((el) => (
           <Route path={el.link} element={el.element} key={el.id} />
         ))}

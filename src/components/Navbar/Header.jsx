@@ -21,6 +21,7 @@ import { useAuthContext } from "../../context/AuthContext";
 import { Avatar } from "antd";
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import { useCartContext } from "../../context/CartContext";
+import { ADMIN_USER } from "../../helpers/const";
 
 
 const Search = styled("div")(({ theme }) => ({
@@ -66,6 +67,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Header() {
   const navigate = useNavigate();
 
+  
   const {cart} = useCartContext()
   const { getProduct } = useProducts();
   const {user,logOut} = useAuthContext()
@@ -197,16 +199,27 @@ export default function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar sx={{ background: "#101418" }}>
-          <IconButton
-            onClick={() => navigate("/admin")}
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <AdminPanel />
-          </IconButton>
+          {
+            ADMIN_USER.map((el,index) =>
+            user && el.email === user.email ? (
+              <IconButton
+              key={index}
+              onClick={() => navigate("/admin")}
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              sx={{ mr: 2 }}
+            >
+              <AdminPanel />
+              </IconButton>
+           ) : (
+              ""
+            )
+            )
+          }
+         
+          
           <Typography
             onClick={() => navigate("/")}
             variant="h6"

@@ -12,3 +12,10 @@ export const ACTION_CHECK = {
 export const ACTION_CART = {
   GET_CART: "GET_CART",
 }
+
+export const ADMIN_USER = [
+  {
+    email: "admin@gmail.com", 
+    password: 1245678, 
+  }
+]
